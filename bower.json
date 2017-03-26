@@ -1,0 +1,24 @@
+{
+  "name": "",
+  "version": "",
+  "description": "",
+  "authors": [
+    "CodeLabs Team"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/lib/",
+    "test",
+    "tests",
+    "bower_components"
+  ],
+  "dependencies": {
+  },
+  "resolutions": {
+  },
+  "main": "",
+  "homepage": "",
+  "private": true
+}
