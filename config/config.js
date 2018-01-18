@@ -15,12 +15,19 @@ module.exports = {
 		author: "CodeLabs Team",
 		license: "MIT"
 	},
-	port: 3000,
+	port: {
+		http: 80,
+		https: 443
+	},
+	uri: '',
 	dev: true,
 	secret: "",
 	env: {
 	},
 	session: {
 		secret: ""
-	}
+	},
+	password_not_include: [
+		'000000'
+	]
 };

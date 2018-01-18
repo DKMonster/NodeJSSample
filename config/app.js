@@ -12,7 +12,8 @@ module.exports.start = function start(_dir) {
 	var cookieParser = require('cookie-parser'); // cookie
 	var session = require('express-session'); // session
 	var methodOverride = require('method-override');
-	// var database = require('./database.js');
+	var https = require('https');
+	var fs = require('fs');
 
 	// configuration ------------------------------
 	var config = require('./config.js');
@@ -36,6 +37,14 @@ module.exports.start = function start(_dir) {
 		cookie: { secure: true }
 	})); // session
 
+	// set open ssl key
+	// var hskey = fs.readFileSync('key/key.pem', 'utf8');
+	// var hscert = fs.readFileSync('key/cert.pem', 'utf8'); // test server
+	// var credentials = {
+	// 	key: hskey,
+	// 	cert: hscert
+	// };
+
 	// logger morgan
 	logger.start(app, _dir);
 
@@ -43,11 +52,15 @@ module.exports.start = function start(_dir) {
 
 	app.listen(config.port);
 
+	// https listen.
+	// https.createServer(credentials, app).listen(config.port.https);
+
 	console.log('-----------------------------');
 	console.log('\t');
 	console.log('Server:\t\t' + config.app.title);
 	console.log('Version:\t' + config.app.version);
-	console.log('Port:\t\t' + config.port);
+	console.log('Http Port:\t' + config.port.http);
+	// console.log('Https Port:\t' + config.port.https);
 	console.log('\t');
 	console.log('-----------------------------');
 };

@@ -11,9 +11,30 @@ module.exports.counters = counters;
 module.exports.develops = develops;
 module.exports.walkers = walkers;
 
+/*
+ *
+ * Database Start
+ * 
+ */
+
+
 // connect the database
 module.exports.connect = function connect() {
-	return mongoose.connect(config.db.uri); // connect to mongoDB database
+    var options = { useMongoClient: true };
+    mongoose.Promise = require('bluebird');
+    // connect to mongoDB database
+	mongoose.connect(config.db.uri, options)
+        .then(() => {
+            mongoose.connection.on('error', err => {
+                console.log('mongoose connection error: '+err);
+            });
+
+            console.log('connected - attempting reconnect');
+            return mongoose.connect(config.db.uri, options);
+        }).catch(err => {
+            console.log('rejected promise: '+err);
+            mongoose.disconnect();
+        });
 };
 
 // disconnect the database

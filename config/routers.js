@@ -4,12 +4,20 @@ var express = require('express');
 var path = require('path');
 var multer = require('multer');
 var database = require('./database.js');
+var config = require('./config.js');
 var db = database.connect();
 
 var upload = multer({ dest: __dirname + '/../tmp' });
 
 module.exports.start = function start(app, _dir) {
 	app.use(express.static('public'));
+    //CORS
+    // app.use(function(req, res, next) {
+    //     res.header("Access-Control-Allow-Origin", "*");
+    //     res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS, PATCH");
+    //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, X-Access-Token, Content-Type, Accept");
+    //     next();
+    // });
 
 	var indexRoute = require(path.join(_dir, '/routers/index.router.js'));
 	var testRoute = require(path.join(_dir, '/routers/test.router.js'));
@@ -44,4 +52,18 @@ module.exports.start = function start(app, _dir) {
 	 * ****************************** */
 	app.get('/api/counters/initUserIDSchema', database.counters.initUserIDSchema);
 	app.get('/api/counters/insertUserIDSchema', database.counters.insertUserIDSchema);
+
+    /* ****************************** *
+     * ******** about apidoc ******** *
+     * ****************************** */
+    app.get('/apidoc', function(request, response) {
+        response.sendFile(path.join(__dirname, '../public/apidoc', 'index.html'));
+    });
+
+    /* ******************************* *
+     * ******* about front end ******* *
+     * ******************************* */
+    app.use(function(req, res) {
+        res.sendFile(path.join(__dirname, '../public', 'index.html'));
+    });
 };
