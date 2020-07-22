@@ -58,6 +58,6 @@
     "grunt-nodemon": "^0.4.2",
     "grunt-shell": "^2.1.0",
     "mocha": "^6.2.0",
-    "standard-version": "^4.3.0"
+    "standard-version": "^8.0.1"
   }
 }
